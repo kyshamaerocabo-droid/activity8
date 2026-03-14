@@ -1,56 +1,76 @@
 <div class="container">
 
-<h2>Register</h2>
+  <h2>Register</h2>
 
-<label>Username</label>
-<input type="text" [(ngModel)]="username">
+  <form [formGroup]="loginForm">
 
-<label>Email</label>
-<input type="text" [(ngModel)]="email">
+    <label>Username</label>
+    <input type="text" formControlName="username">
+    <div style="color:red" *ngIf="submitted && loginForm.controls.username.invalid">
+      <small *ngIf="loginForm.controls.username.errors?.['required']">Username is required</small>
+      <small *ngIf="loginForm.controls.username.errors?.['minlength']">Username must be at least 3 characters</small>
+    </div>
 
-<label>Password</label>
-<input type="password" [(ngModel)]="password">
+    <label>Email</label>
+    <input type="text" formControlName="email">
+    <div style="color:red" *ngIf="submitted && loginForm.controls.email.invalid">
+      <small *ngIf="loginForm.controls.email.errors?.['required']">Email is required</small>
+      <small *ngIf="loginForm.controls.email.errors?.['email']">Invalid email format</small>
+    </div>
 
-<label>Contact</label>
-<input type="text" [(ngModel)]="contact">
+    <label>Password</label>
+    <input type="password" formControlName="password">
+    <div style="color:red" *ngIf="submitted && loginForm.controls.password.invalid">
+      <small *ngIf="loginForm.controls.password.errors?.['required']">Password is required</small>
+      <small *ngIf="loginForm.controls.password.errors?.['minlength']">Password must be at least 6 characters</small>
+    </div>
 
-<label>Address</label>
-<input type="text" [(ngModel)]="address">
+    <label>Contact</label>
+    <input type="text" formControlName="contact">
+    <div style="color:red" *ngIf="submitted && loginForm.controls.contact.invalid">
+      <small *ngIf="loginForm.controls.contact.errors?.['required']">Contact is required</small>
+      <small *ngIf="loginForm.controls.contact.errors?.['pattern']">Contact must be 10-11 digits</small>
+    </div>
 
-<label>Role</label>
-<select [(ngModel)]="role">
-  <option>Student</option>
-  <option>Admin</option>
-</select>
+    <label>Address</label>
+    <input type="text" formControlName="address">
+    <div style="color:red" *ngIf="submitted && loginForm.controls.address.invalid">
+      <small *ngIf="loginForm.controls.address.errors?.['required']">Address is required</small>
+    </div>
 
-<br><br>
+    <label>Role</label>
+    <select formControlName="role">
+      <option>Student</option>
+      <option>Admin</option>
+    </select>
 
-<button (click)="register()">Register</button>
+    <br><br>
 
-<br><br>
+    <button type="button" (click)="register()">Register</button>
 
-<p>Already have an account? <a href="#">Login</a></p>
+  </form>
 
-<table border="1">
+  <br><br>
 
-<tr>
-<th>Username</th>
-<th>Email</th>
-<th>Contact</th>
-<th>Address</th>
-</tr>
+  <p>Already have an account? <a href="#">Login</a></p>
 
-<tr *ngFor="let u of users">
-<td>{{u.username}}</td>
-<td>{{u.email}}</td>
-<td>{{u.contact}}</td>
-<td>{{u.address}}</td>
-</tr>
+  <table border="1">
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Contact</th>
+      <th>Address</th>
+    </tr>
+    <tr *ngFor="let u of users">
+      <td>{{u.username}}</td>
+      <td>{{u.email}}</td>
+      <td>{{u.contact}}</td>
+      <td>{{u.address}}</td>
+    </tr>
+  </table>
 
-</table>
+  <br>
 
-<br>
-
-<p style="color:rgb(255, 0, 0)">{{message}}</p>
+  <p style="color:red">{{message}}</p>
 
 </div>
