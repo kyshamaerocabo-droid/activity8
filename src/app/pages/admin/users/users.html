@@ -46,9 +46,16 @@
 
     <br><br>
 
-    <button type="button" (click)="register()">Register</button>
+    <!-- REGISTER / UPDATE BUTTON -->
+    <button *ngIf="selectedIndex === -1" type="button" (click)="register()">Register</button>
+    <button *ngIf="selectedIndex !== -1" type="button" (click)="updateUser()">Update</button>
 
   </form>
+
+  <br><br>
+
+  <!-- SEARCH -->
+  <input type="text" [(ngModel)]="searchText" placeholder="Search username">
 
   <br><br>
 
@@ -60,12 +67,20 @@
       <th>Email</th>
       <th>Contact</th>
       <th>Address</th>
+      <th>Role</th> <!-- ✅ ADDED -->
+      <th>Actions</th>
     </tr>
-    <tr *ngFor="let u of users">
+
+    <tr *ngFor="let u of filteredUsers; let i = index">
       <td>{{u.username}}</td>
       <td>{{u.email}}</td>
       <td>{{u.contact}}</td>
       <td>{{u.address}}</td>
+      <td>{{u.role}}</td> <!-- ✅ ADDED -->
+      <td>
+        <button (click)="editUser(i)">Edit</button>
+        <button (click)="deleteUser(i)">Delete</button>
+      </td>
     </tr>
   </table>
 

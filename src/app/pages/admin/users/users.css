@@ -7,7 +7,6 @@
   width: 100%;
   margin: 0;
 
-  
   background-color: #af2adb;
   background-image: 
     radial-gradient(at 0% 0%, #e02932 0px, transparent 50%),
@@ -21,17 +20,15 @@
 /* Widened Glassmorphism Container */
 .container {
   width: 95%; 
-  max-width: 600px;     
+  max-width: 1000px; /* ✅ MODIFIED (was 600px) */
   padding: 45px;
   border-radius: 28px;
   box-sizing: border-box; 
 
-  /* Glassmorphism Core */
   background: rgba(243, 237, 237, 0.1); 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 
-  /* Borders and Depth */
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
 
@@ -129,7 +126,7 @@ a:hover {
   width: 100%;
   margin-top: 35px;
   border-radius: 16px;
-  overflow: hidden; /* Ensures table corners match container */
+  overflow-x: auto; /* ✅ ADDED for scroll */
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -137,7 +134,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   background: rgba(255, 255, 255, 0.03);
-  table-layout: fixed; /* Fixes table width inside container */
+  table-layout: fixed;
 }
 
 th {
@@ -157,12 +154,18 @@ td {
   font-size: 14px;
 }
 
+/* ✅ PREVENT TEXT OVERFLOW */
+td, th {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
 /* Remove bottom border from last row */
 tr:last-child td {
   border-bottom: none;
 }
+
 .error-glass {
-  /* Layout */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -170,23 +173,39 @@ tr:last-child td {
   margin: 20px 0;
   padding: 12px 16px;
   
-  /* Glassmorphism Logic */
-  background: rgba(255, 0, 0, 0.1); /* Very slight red tint */
+  background: rgba(255, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   
-  /* Border & Text */
   border: 1px solid rgba(255, 50, 50, 0.3);
   border-radius: 12px;
-  color: #ff8585; /* Soft red for better readability on purple */
+  color: #ff8585;
   font-size: 14px;
   font-weight: 600;
   
-  /* Entry Animation */
   animation: fadeIn 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* FIX: ACTION BUTTONS (NO OVERLAP) */
+td:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+td:last-child button {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  margin-top: 0;
+}
+
+/* BLACK TABLE BORDERS */
+table, th, td {
+  border: 1px solid black;
 }
